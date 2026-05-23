@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vella Co. | Premium Clothing</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+/* बाकी CSS वही रखें, बस ये नई स्टाइल्स जोड़ें */
+.banner-image-container {
+    width: 100%; height: 250px; background-size: cover; background-position: center; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+.trust-badge { font-size: 12px; color: #22c55e; font-weight: 600; margin-top: 10px; display: block; }
+.policy-section { padding: 20px; font-size: 12px; color: #666; background: #fdfdfd; border-top: 1px solid #eee; }
+</style>
+</head>
+<body>
+
+<div class="promo-banner-section">
+    <div class="banner-slider">
+        <div class="slide-poster active" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800'); background-size: cover; background-position: center;">
+            <h2 style="color: white;">NEW COLLECTION</h2>
+        </div>
+    </div>
+</div>
+
+<div id="checkoutModal">
+    <div class="modal-content">
+        <h3>Delivery Details</h3>
+        <p style="font-size:12px; color:#555;">✅ Cash on Delivery Available | 100% Secure Checkout</p>
+        <input type="text" id="custName" placeholder="Full Name">
+        <input type="number" id="custMobile" placeholder="10-Digit Mobile Number">
+        <input type="number" id="custPincode" placeholder="6-Digit Pincode">
+        <textarea id="custAddress" placeholder="Complete Address" rows="3"></textarea>
+        <button onclick="dispatchToWhatsApp()">Confirm Order via WhatsApp</button>
+    </div>
+</div>
+
+<footer>
+    <div class="policy-section">
+        <p>🔄 7-Day Easy Return & Exchange Policy</p>
+        <p>🚚 Free Priority Shipping on orders above ₹1499</p>
+    </div>
+    <p>© 2026 Vella Co. All Rights Reserved.</p>
+</footer>
+
+<script>
+// बाकी JavaScript वही रखें, बस WhatsApp वाले फंक्शन में ये अपडेट करें:
+
+function dispatchToWhatsApp() {
+    // ... (पुराना लॉजिक)
+    
+    // सुरक्षित मैसेज फॉर्मेट
+    let fullWhatsAppMessageText = 
+        "🛒 *New Order from Vella Co.* %0A%0A" +
+        "👤 *Customer:* " + name + "%0A" +
+        "📞 *Phone:* " + phone + "%0A" +
+        "📍 *Address:* " + addr + " - " + pin + "%0A%0A" +
+        "🛍 *Items:*%0A" + productStrings + 
+        "💰 *Total:* ₹" + finalBill + "%0A" +
+        "📦 *Payment Mode:* Cash on Delivery (COD)";
+
+    window.open("https://wa.me/919999999999?text=" + fullWhatsAppMessageText, "_blank");
+}
+</script>
+</body>
+</html>
