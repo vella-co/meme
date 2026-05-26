@@ -357,16 +357,7 @@ header{
     color:#fff;
 }
 
-.cod-badge{
-    margin-top:15px;
-    background:#fafafa;
-    border:1px solid #eee;
-    padding:10px;
-    border-radius:12px;
-    font-size:13px;
-    text-align:center;
-    font-weight:600;
-}
+/* COD BADGE REMOVED */
 
 /* CART */
 
@@ -718,6 +709,84 @@ footer{
 <!-- PRODUCT -->
 
 <div class="product-card reveal" data-category="tshirt">
+<div class="wishlist">
+<i class="fa-regular fa-heart"></i>
+</div>
+<div class="product-image">
+<img src="images/tshirt2.webp">
+</div>
+<div class="product-info">
+<h3>Classic Black Tee</h3>
+<div class="rating">★★★★★</div>
+<div class="price">1199</div>
+<div class="sizes">
+<div class="size">S</div>
+<div class="size">M</div>
+<div class="size">L</div>
+<div class="size">XL</div>
+</div>
+<div class="product-buttons">
+<button class="add-cart">Add to Cart</button>
+<button class="order-now">Order Now</button>
+</div>
+</div>
+</div>
+
+<!-- PRODUCT -->
+
+<div class="product-card reveal" data-category="hoodie">
+<div class="wishlist">
+<i class="fa-regular fa-heart"></i>
+</div>
+<div class="product-image">
+<img src="images/hoodie2.webp">
+</div>
+<div class="product-info">
+<h3>Streetwear Hoodie</h3>
+<div class="rating">★★★★★</div>
+<div class="price">1799</div>
+<div class="sizes">
+<div class="size">S</div>
+<div class="size">M</div>
+<div class="size">L</div>
+<div class="size">XL</div>
+</div>
+<div class="product-buttons">
+<button class="add-cart">Add to Cart</button>
+<button class="order-now">Order Now</button>
+</div>
+</div>
+</div>
+
+<!-- PRODUCT -->
+
+<div class="product-card reveal" data-category="cargo">
+<div class="wishlist">
+<i class="fa-regular fa-heart"></i>
+</div>
+<div class="product-image">
+<img src="images/cargo2.webp">
+</div>
+<div class="product-info">
+<h3>Loose Fit Cargo</h3>
+<div class="rating">★★★★★</div>
+<div class="price">1999</div>
+<div class="sizes">
+<div class="size">S</div>
+<div class="size">M</div>
+<div class="size">L</div>
+<div class="size">XL</div>
+</div>
+<div class="product-buttons">
+<button class="add-cart">Add to Cart</button>
+<button class="order-now">Order Now</button>
+</div>
+</div>
+</div>
+
+<!-- PRODUCT -->
+
+<div class="product-card reveal" data-category="tshirt">
 
 <div class="wishlist">
 <i class="fa-regular fa-heart"></i>
@@ -744,9 +813,7 @@ footer{
 <button class="order-now">Order Now</button>
 </div>
 
-<div class="cod-badge">
-Cash on Delivery Available
-</div>
+
 
 </div>
 </div>
@@ -780,9 +847,7 @@ Cash on Delivery Available
 <button class="order-now">Order Now</button>
 </div>
 
-<div class="cod-badge">
-Cash on Delivery Available
-</div>
+
 
 </div>
 </div>
@@ -816,9 +881,7 @@ Cash on Delivery Available
 <button class="order-now">Order Now</button>
 </div>
 
-<div class="cod-badge">
-Cash on Delivery Available
-</div>
+
 
 </div>
 </div>
@@ -865,7 +928,7 @@ Cash on Delivery Available
 
 <div class="input-box">
 <label>Phone Number</label>
-<input type="tel" id="customerPhone" required>
+<input type="tel" id="customerPhone" maxlength="10" minlength="10" pattern="[0-9]{10}" inputmode="numeric" required>
 </div>
 
 <div class="input-box">
@@ -1217,6 +1280,11 @@ checkoutForm.addEventListener('submit',(e)=>{
 
     const customerName=document.getElementById('customerName').value;
     const customerPhone=document.getElementById('customerPhone').value;
+
+    if(!/^\d{10}$/.test(customerPhone)){
+        alert('Please enter valid 10 digit mobile number');
+        return;
+    }
     const customerAddress=document.getElementById('customerAddress').value;
 
     let message='Hello VELLA CO.,%0A%0A';
