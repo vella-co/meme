@@ -5,75 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VELLA CO. | Premium Streetwear</title>
     <style>
-        /* CSS START */
-        :root { --bg: #ffffff; --text: #000000; --accent: #f4f4f4; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+        :root { --bg: #ffffff; --text: #000000; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', sans-serif; }
         
-        .navbar { display: flex; justify-content: space-between; padding: 20px 5%; position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid #eee; }
-        .logo { font-size: 24px; font-weight: bold; letter-spacing: 2px; }
-        .nav-links a { text-decoration: none; color: black; margin-left: 20px; font-size: 14px; text-transform: uppercase; }
+        /* Navbar */
+        .navbar { display: flex; justify-content: space-between; padding: 20px 5%; position: sticky; top: 0; background: white; z-index: 1000; border-bottom: 1px solid #eee; }
         
-        .hero { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .hero h1 { font-size: 4rem; margin-bottom: 20px; }
-        .btn-cta { padding: 15px 40px; background: black; color: white; border: none; cursor: pointer; transition: 0.3s; }
+        /* Grid & Cards */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; padding: 50px 5%; }
+        .product-card { border: 1px solid #eee; padding: 15px; text-align: center; }
+        .product-card img { width: 100%; height: 300px; object-fit: cover; margin-bottom: 15px; }
         
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 50px 5%; }
-        .product-card { border: 1px solid #eee; padding: 20px; transition: 0.4s; }
-        .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .product-card button { width: 100%; padding: 10px; margin-top: 10px; cursor: pointer; border: 1px solid black; background: white; }
-        .product-card button:hover { background: black; color: white; }
+        /* Footer */
+        footer { padding: 50px 5%; background: #f9f9f9; text-align: center; margin-top: 50px; }
+        .footer-links { margin-bottom: 20px; }
+        .footer-links a { margin: 0 10px; color: #666; text-decoration: none; font-size: 14px; }
         
-        .drawer { position: fixed; right: -400px; top: 0; width: 350px; height: 100%; background: white; border-left: 1px solid #eee; padding: 30px; transition: 0.5s; z-index: 2000; overflow-y: auto; }
+        .drawer { position: fixed; right: -400px; top: 0; width: 350px; height: 100%; background: white; border-left: 1px solid #eee; padding: 30px; transition: 0.5s; z-index: 2000; }
         .drawer.open { right: 0; }
-        /* CSS END */
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="logo">VELLA CO.</div>
-        <div class="nav-links">
-            <a href="#shop">Shop</a>
+        <div class="logo"><strong>VELLA CO.</strong></div>
+        <div>
             <a href="#" onclick="toggleCart()">Cart (<span id="cart-count">0</span>)</a>
         </div>
     </nav>
 
-    <section class="hero">
-        <h1>NEW LUXURY DROP</h1>
-        <button class="btn-cta" onclick="document.querySelector('#shop').scrollIntoView({behavior:'smooth'})">EXPLORE</button>
+    <section id="shop" class="product-grid">
+        <!-- Product Card Example -->
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500" alt="T-Shirt">
+            <h3>Premium Black Tee</h3>
+            <p>₹1,299</p>
+            <button onclick="addToCart('Premium Black Tee', 1299)">ADD TO CART</button>
+        </div>
     </section>
 
-    <section id="shop" class="product-grid">
-        </section>
+    <footer>
+        <div class="footer-links">
+            <a href="#">About Us</a> | 
+            <a href="#">Privacy Policy</a> | 
+            <a href="#">Terms of Service</a>
+        </div>
+        <p>&copy; 2026 VELLA CO. All Rights Reserved.</p>
+    </footer>
 
     <div id="cart-drawer" class="drawer">
         <h2>YOUR CART</h2>
-        <div id="cart-items"></div>
-        <hr style="margin: 20px 0;">
-        <button onclick="checkout()" style="width:100%; padding: 15px; background:black; color:white; border:none;">CHECKOUT ON WHATSAPP</button>
+        <div id="cart-items" style="margin: 20px 0;"></div>
+        <button onclick="checkout()" style="width:100%; padding:15px; background:black; color:white; border:none;">WHATSAPP ORDER</button>
     </div>
 
     <script>
-        /* JS START */
-        const WHATSAPP_NUMBER = "919876543210"; // Apna Number yahan dalein
-        const products = Array.from({length: 8}, (_, i) => ({ id: i+1, name: `Premium Hoodie ${i+1}`, price: 1200 + (i*100) }));
         let cart = JSON.parse(localStorage.getItem('vellaCart')) || [];
 
-        function renderProducts() {
-            const grid = document.querySelector('.product-grid');
-            grid.innerHTML = products.map(p => `
-                <div class="product-card">
-                    <h3>${p.name}</h3>
-                    <p>₹${p.price}</p>
-                    <button onclick="addToCart(${p.id})">ADD TO CART</button>
-                </div>
-            `).join('');
-        }
-
-        function addToCart(id) {
-            const p = products.find(prod => prod.id === id);
-            cart.push(p);
+        function addToCart(name, price) {
+            cart.push({name, price});
             localStorage.setItem('vellaCart', JSON.stringify(cart));
             updateCart();
             alert("Added to cart!");
@@ -88,15 +78,11 @@
         function toggleCart() { document.getElementById('cart-drawer').classList.toggle('open'); }
 
         function checkout() {
-            if(cart.length === 0) return alert("Cart is empty!");
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            const msg = `Hello VELLA CO., I want to buy these items:\n${cart.map(i => i.name).join(', ')}\nTotal: ₹${total}`;
-            window.location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+            const msg = `Hello VELLA CO., I want to order: ${cart.map(i => i.name).join(', ')}`;
+            window.location.href = `https://wa.me/919876543210?text=${encodeURIComponent(msg)}`;
         }
 
-        renderProducts();
         updateCart();
-        /* JS END */
     </script>
 </body>
 </html>
